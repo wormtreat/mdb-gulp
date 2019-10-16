@@ -3,6 +3,8 @@ Gulp version 4 does not work with the MDB/jQuery gulpfile as described in the do
 
 ## Instructions
 
+Replace the gulpfile you downloaded with the one in this repo.
+
 Follow the tutorial here: [From the MDB Gulp Instructions](https://mdbootstrap.com/education/bootstrap/gulp-installation/) until step #6.
 
 ...
