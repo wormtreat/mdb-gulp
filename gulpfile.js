@@ -43,6 +43,20 @@ function compileCssModules() {
     .pipe(gulp.dest('./dist/'))
 }
 
+// Compile SCSS addons
+function compileCssAddons() {
+  console.log("Compiling & minifying addons, generating source maps.");
+  return gulp.src(['scss/addons/*.scss'])
+    .pipe(sourcemaps.init())
+    .pipe(sass({outputStyle: 'nested'}).on('error', sass.logError))
+    .pipe(postcss([autoprefixer({})]))
+    .pipe(sourcemaps.write('./'))
+    .pipe(cleanCss())
+    .pipe(rename({ dirname: './css/addons/' }))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('./dist/'))
+}
+
 // Compile source SCSS
 function compileCss() {
   console.log("Compiling & minifying main scss, generating source maps.");
@@ -107,6 +121,7 @@ function compressImages() {
 
 // Initialize Browser
 function browserInit(){
+  console.log("Syncing Browser.");
   browserSync.init({
     server: {
       baseDir: "./dist",
@@ -129,10 +144,7 @@ function getJSModules() {
 
 // Watch on all sources and compile SCSS modules
 function mdb_go() {
-  console.log("Compiling CSS Modules");
-  compileCssModules();
-  console.log("Syncing Browser, Monitoring source JS, SCSS and Images for changes.");
-  browserInit()
+  console.log("Monitoring source JS, SCSS and Images for changes.");
   gulp.watch("scss/**/*.scss", gulp.series(compileCss), browserSync.reload);
   gulp.watch("js/**/*.js", gulp.series(compileJs), browserSync.reload);
   gulp.watch("**/*", {cwd: './img/'}, gulp.series(compressImages), browserSync.reload);
@@ -153,7 +165,7 @@ function watcher() {
 // With no arguments, JS & SCSS are processed
 exports.default = gulp.series(compileCss, compileJs);
 // Processes/watches everything
-exports.mdb_go = gulp.series(compileCss, compileJs, mdb_go);
+exports.mdb_go = gulp.series(compileCssModules, compileCssAddons, compileCss, compileJs, browserInit, mdb_go);
 // Does not lauch a server or browser sync
 exports.watch = gulp.series(compileCss, compileJs, watcher);
 // Compile SCSS and exit
