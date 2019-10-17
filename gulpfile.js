@@ -99,7 +99,7 @@ function compileJs() {
  */
 function compressImages() {
   console.log("Compressing Images.");
-  gulp.src('./img/*')
+  return gulp.src('./img/*')
   .pipe(imagemin([
     imagemin.gifsicle({interlaced: true}),
     imagemin.jpegtran({progressive: true}),
