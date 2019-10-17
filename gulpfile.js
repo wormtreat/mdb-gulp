@@ -37,10 +37,10 @@ function compileCssModules() {
     .pipe(sass({outputStyle: 'nested'}).on('error', sass.logError))
     .pipe(postcss([autoprefixer({})]))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./dist/css/modules/'))
     .pipe(cleanCss())
+    .pipe(rename({ dirname: './css/modules/' }))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('./dist/css/modules/'))
+    .pipe(gulp.dest('./dist/'))
 }
 
 // Compile source SCSS
@@ -152,7 +152,7 @@ function watcher() {
 
 // With no arguments, JS & SCSS are processed
 exports.default = gulp.series(compileCss, compileJs);
-// Runs/watches everything
+// Processes/watches everything
 exports.mdb_go = gulp.series(compileCss, compileJs, mdb_go);
 // Does not lauch a server or browser sync
 exports.watch = gulp.series(compileCss, compileJs, watcher);
