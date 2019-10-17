@@ -174,3 +174,5 @@ exports.css = gulp.series(compileCss);
 exports.css_modules = gulp.series(compileCssModules);
 // Compile JS and exit
 exports.js = gulp.series(compileJs);
+// Compile images and exits
+exports.img = gulp.series(compressImages);

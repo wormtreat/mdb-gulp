@@ -25,6 +25,10 @@ If no command is given, the default behaviour is to process source SCSS & JS the
 3. css - Compile SCSS and exit
 4. css_modules - Compile SCSS modules and exit
 5. js - Compile JS and exit
+6. img - Compress images and exit 
+
+#### NOTE: The './img/' source folder is missing from the download, you need to create it.
+Once you have a source folder for images, use the 'img' command to copy/compress source images to the 'dist/img/' folder.
 
 ### Examples
 
@@ -34,5 +38,6 @@ gulp watch
 gulp css
 gulp css_modules
 gulp js
+gulp img
 gulp
 ```
